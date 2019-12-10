@@ -9,9 +9,7 @@
 
 namespace lv {
   namespace detail {
-    struct any_marker
-    {
-    };
+    struct any_marker;
 
     template <typename Iterator>
     struct collector_proxy
