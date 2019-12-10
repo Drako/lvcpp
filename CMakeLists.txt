@@ -13,3 +13,5 @@ add_executable(lvcpp_tests test/catch.hpp test/main.cxx test/utilities.cxx test/
 target_link_libraries(lvcpp_tests lvcpp)
 
 add_test(NAME tests COMMAND lvcpp_tests)
+
+install(DIRECTORY include/lv DESTINATION include)
