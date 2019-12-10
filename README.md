@@ -13,6 +13,8 @@ Sequences are usually created with the `lv::sequence_of()` function template.
 ## Basic Usage
 
 ```cpp
+#include <lv/cpp.hxx>
+
 // initializer_list is supported
 auto const seq = lv::sequence_of({1, 2, 3, 4});
 
@@ -20,14 +22,19 @@ auto const seq = lv::sequence_of({1, 2, 3, 4});
 char const text[] = { 'h', 'e', 'l', 'l', 'o' };
 auto const str = lv::sequence_of(text).collect<std::string>();
 
+// optionally
+using namespace lv;
+
 // sequences can be created from mostly any kind of container supporting std::begin and std::end
 // although sequence_of will use std::cbegin and std::cend as we don't want to modify inputs.
-auto const seq = lv::sequence_of("Hello world!"s);
-auto const seq = lv::sequence_of(std::vector { 13.37, 3.14159 });
+auto const seq = sequence_of("Hello world!"s);
+auto const seq = sequence_of(std::vector { 13.37, 3.14159 });
 
-// collect will also apply implicit conversions like char* to string:
-auto const strings = lv::sequence_of({"foo"s, "bar"s, "baz"s})
-    .collect<std::vector<std::string>>();
+// collecting can be done via the aforementioned collect function
+// or via the collector:
+auto const numbers = sequence_of({1, 2, 3}) << collect<std::vector<int>>();
+// the collector also supports return type deduction:
+std::string str = sequence_of({'f', 'o', 'o'}) << collect(); 
 ```
 
 ## Documentation
