@@ -66,6 +66,9 @@ namespace lv {
     }
   };
 
+  template <typename Iterator>
+  sequence(Iterator, Iterator) -> sequence<Iterator>;
+
   template <typename Iterable>
   constexpr auto sequence_of(Iterable const & iterable)
   -> std::enable_if_t<is_iterable_v<Iterable>, sequence<decltype(std::cbegin(iterable))>>
