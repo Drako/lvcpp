@@ -16,8 +16,8 @@ TEST_CASE("types are determined correctly", "[utilities]")
     REQUIRE(typeid(std::random_access_iterator_tag) == typeid(lv::category_of<decltype(it)>));
     REQUIRE(typeid(int) == typeid(lv::value_type_of<decltype(it)>));
     REQUIRE(typeid(std::ptrdiff_t) == typeid(lv::difference_type_of<decltype(it)>));
-    REQUIRE(typeid(int*) == typeid(lv::pointer_of<decltype(it)>));
-    REQUIRE(typeid(int&) == typeid(lv::reference_of<decltype(it)>));
+    REQUIRE(typeid(int *) == typeid(lv::pointer_of<decltype(it)>));
+    REQUIRE(typeid(int &) == typeid(lv::reference_of<decltype(it)>));
   }
 
   SECTION("constant C array")
@@ -40,8 +40,8 @@ TEST_CASE("types are determined correctly", "[utilities]")
     REQUIRE(typeid(std::random_access_iterator_tag) == typeid(lv::category_of<decltype(it)>));
     REQUIRE(typeid(int) == typeid(lv::value_type_of<decltype(it)>));
     REQUIRE(typeid(std::ptrdiff_t) == typeid(lv::difference_type_of<decltype(it)>));
-    REQUIRE(typeid(int*) == typeid(lv::pointer_of<decltype(it)>));
-    REQUIRE(typeid(int&) == typeid(lv::reference_of<decltype(it)>));
+    REQUIRE(typeid(int *) == typeid(lv::pointer_of<decltype(it)>));
+    REQUIRE(typeid(int &) == typeid(lv::reference_of<decltype(it)>));
   }
 
   SECTION("constant C++ array")
@@ -64,8 +64,8 @@ TEST_CASE("types are determined correctly", "[utilities]")
     REQUIRE(typeid(std::random_access_iterator_tag) == typeid(lv::category_of<decltype(it)>));
     REQUIRE(typeid(int) == typeid(lv::value_type_of<decltype(it)>));
     REQUIRE(typeid(std::ptrdiff_t) == typeid(lv::difference_type_of<decltype(it)>));
-    REQUIRE(typeid(int*) == typeid(lv::pointer_of<decltype(it)>));
-    REQUIRE(typeid(int&) == typeid(lv::reference_of<decltype(it)>));
+    REQUIRE(typeid(int *) == typeid(lv::pointer_of<decltype(it)>));
+    REQUIRE(typeid(int &) == typeid(lv::reference_of<decltype(it)>));
   }
 
   SECTION("constant vector")
@@ -88,8 +88,8 @@ TEST_CASE("types are determined correctly", "[utilities]")
     REQUIRE(typeid(std::bidirectional_iterator_tag) == typeid(lv::category_of<decltype(it)>));
     REQUIRE(typeid(int) == typeid(lv::value_type_of<decltype(it)>));
     REQUIRE(typeid(std::ptrdiff_t) == typeid(lv::difference_type_of<decltype(it)>));
-    REQUIRE(typeid(int*) == typeid(lv::pointer_of<decltype(it)>));
-    REQUIRE(typeid(int&) == typeid(lv::reference_of<decltype(it)>));
+    REQUIRE(typeid(int *) == typeid(lv::pointer_of<decltype(it)>));
+    REQUIRE(typeid(int &) == typeid(lv::reference_of<decltype(it)>));
   }
 
   SECTION("constant list")
@@ -110,7 +110,7 @@ TEST_CASE("type traits work as expected", "[utilities]")
   SECTION("is_iterator_v")
   {
     REQUIRE(!lv::is_iterator_v<int>);
-    REQUIRE(lv::is_iterator_v<int*>);
+    REQUIRE(lv::is_iterator_v<int *>);
     REQUIRE(lv::is_iterator_v<int const *>);
     REQUIRE(lv::is_iterator_v<int * const>);
     REQUIRE(lv::is_iterator_v<std::vector<int>::iterator>);
@@ -120,7 +120,7 @@ TEST_CASE("type traits work as expected", "[utilities]")
   SECTION("is_iterable_v")
   {
     REQUIRE(!lv::is_iterable_v<int>);
-    REQUIRE(lv::is_iterable_v<int(&)[10]>);
+    REQUIRE(lv::is_iterable_v<int (&)[10]>);
     REQUIRE(lv::is_iterable_v<std::array<int, 10>>);
     REQUIRE(lv::is_iterable_v<std::vector<int>>);
     REQUIRE(lv::is_iterable_v<std::list<int>>);

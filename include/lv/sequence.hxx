@@ -51,7 +51,7 @@ namespace lv {
     }
 
     [[nodiscard]]
-    constexpr bool operator == (sequence const & rhs) const
+    constexpr bool operator==(sequence const & rhs) const
     {
       for (auto lit = begin_, rit = rhs.begin_; lit != end_ && rit != rhs.end_; ++lit, ++rit)
         if (*lit != *rit)
@@ -60,7 +60,7 @@ namespace lv {
     }
 
     [[nodiscard]]
-    constexpr bool operator != (sequence const & rhs) const
+    constexpr bool operator!=(sequence const & rhs) const
     {
       return !(*this == rhs);
     }

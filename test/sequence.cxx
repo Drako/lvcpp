@@ -66,8 +66,8 @@ TEST_CASE("sequences can be collected", "[sequence]")
 
   SECTION("vector of strings")
   {
-    std::vector<std::string> const expected { "foo"s, "bar"s, "baz"s };
-    auto const strings = lv::sequence_of({ "foo", "bar", "baz" })
+    std::vector<std::string> const expected {"foo"s, "bar"s, "baz"s};
+    auto const strings = lv::sequence_of({"foo", "bar", "baz"})
         .collect<std::vector<std::string>>();
     REQUIRE(strings == expected);
   }

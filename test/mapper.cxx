@@ -46,11 +46,13 @@ TEST_CASE("mapping works", "[mapper]")
 
   SECTION("mapping with lambda with capture")
   {
-    std::map<int, int> const expected_map_count {{1, 1}, {2, 1}, {3, 1}};
+    std::map<int, int> const expected_map_count {{1, 1},
+                                                 {2, 1},
+                                                 {3, 1}};
     std::map<int, int> map_count;
     auto const expected = std::vector {3, 6, 9};
     auto const numbers = sequence_of({1, 2, 3})
-        << map([&map_count](int n){
+        << map([&map_count](int n) {
           ++map_count[n];
           return n * 3;
         })
