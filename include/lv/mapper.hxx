@@ -4,6 +4,7 @@
 #define LVCPP_MAPPER_HXX
 
 #include <optional>
+#include <type_traits>
 
 #include "sequence.hxx"
 
@@ -19,7 +20,7 @@ namespace lv {
     struct mapping_iterator
     {
       using iterator_category = category_of<BaseIterator>;
-      using value_type = std::invoke_result_t<Function, value_type_of<BaseIterator>>;
+      using value_type = std::invoke_result_t<Function, ::lv::value_type_of<BaseIterator>>;
       using difference_type = difference_type_of<BaseIterator>;
       using reference = value_type const &;
       using pointer = value_type const *;
@@ -43,11 +44,15 @@ namespace lv {
 
       constexpr mapping_iterator(mapping_iterator const &) = default;
 
-      constexpr mapping_iterator(mapping_iterator &&) noexcept = default;
+      constexpr mapping_iterator(mapping_iterator &&)
+      noexcept(std::is_nothrow_move_constructible_v<BaseIterator> &&
+               std::is_nothrow_move_constructible_v<std::optional<value_type>>) = default;
 
       constexpr mapping_iterator & operator=(mapping_iterator const &) = default;
 
-      constexpr mapping_iterator & operator=(mapping_iterator &&) noexcept = default;
+      constexpr mapping_iterator & operator=(mapping_iterator &&)
+      noexcept(std::is_nothrow_move_assignable_v<BaseIterator> &&
+               std::is_nothrow_move_assignable_v<std::optional<value_type>>) = default;
 
       ~mapping_iterator() = default;
 
@@ -115,19 +120,19 @@ namespace lv {
     };
   }
 
-  template <typename Iterator, typename Function>
-  constexpr auto operator<<(sequence<Iterator> const & seq, detail::mapper<Function> const & mapper)
-  {
-    return sequence {
-        detail::mapping_iterator<Iterator, Function> {seq.begin(), mapper.function_},
-        detail::mapping_iterator<Iterator, Function> {seq.end(), mapper.function_},
-    };
-  }
-
   template <typename Function>
   constexpr detail::mapper<Function> map(Function const & function)
   {
     return {function};
+  }
+
+  template <typename Iterator, typename Function>
+  constexpr auto operator<<(::lv::sequence<Iterator> const & seq, detail::mapper<Function> const & m)
+  {
+    return sequence {
+        detail::mapping_iterator<Iterator, Function> {seq.begin(), m.function_},
+        detail::mapping_iterator<Iterator, Function> {seq.end(), m.function_},
+    };
   }
 }
 
