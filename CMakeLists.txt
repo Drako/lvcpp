@@ -6,15 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(CATCH_BUILD_STATIC_LIBRARY ON)
-
 enable_testing()
 
 include(FetchContent)
 FetchContent_Declare(
         Catch2
         GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-        GIT_TAG v2.13.6
+        GIT_TAG v2.13.4
 )
 FetchContent_GetProperties(Catch2)
 if (NOT Catch2_POPULATED)
