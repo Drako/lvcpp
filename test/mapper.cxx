@@ -1,4 +1,4 @@
-#include "catch.hpp"
+#include <catch2/catch.hpp>
 
 #include <lv/collector.hxx>
 #include <lv/mapper.hxx>
